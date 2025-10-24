@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js (ATUALIZADO E COMPLETO)
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Menu from "./componentes/Menu";
+import Home from "./componentes/telas/Home";
+import Categoria from "./componentes/telas/categoria/Categoria";
+import Transacao from "./componentes/telas/transacao/Transacao"; 
+import Meta from "./componentes/telas/meta/Meta"; // 1. IMPORTA A TELA DE METAS
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Menu />,
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+            {
+                path: "categorias",
+                element: <Categoria />,
+            },
+            {
+                path: "transacoes",
+                element: <Transacao />,
+            },
+            { // 2. ATIVA A ROTA DE METAS
+                path: "metas",
+                element: <Meta />,
+            }
+        ]
+    }
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <RouterProvider router={router} />
+    );
 }
 
 export default App;
+
