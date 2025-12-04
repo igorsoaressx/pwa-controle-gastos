@@ -22,3 +22,12 @@ Links de entrega do projeto
 * **Dashboard (Frontend - Vercel):** <https://vercel.com/igors-projects-a0de50b6/pwa-controle-gastos>
 * **Dashboard (Backend - Render):** <https://dashboard.render.com/web/srv-d3tfsgfdiees73dgvp0g>
 * **Dashboard (Banco de Dados - Render):** <https://dashboard.render.com/d/dpg-d3tcjj75r7bs73en0mf0-a>
+
+### 🔑 Credenciais para Teste
+
+**Usuário Administrador (Pode excluir registros):**
+* **Email:** admin@teste.com
+* **Senha:** 123456
+
+**Usuário Comum (Não pode excluir):**
+* (Você pode criar um novo clicando em "Cadastre-se" na tela de login)
