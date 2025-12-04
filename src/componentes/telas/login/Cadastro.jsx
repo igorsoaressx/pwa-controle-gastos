@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Carregando from '../../comuns/Carregando';
+import './Login.css'; 
 
 function Cadastro({ setCriandoConta }) {
 
@@ -23,12 +23,12 @@ function Cadastro({ setCriandoConta }) {
             const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/cadastro`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nome, email, senha, tipo: 'comum' }) 
+                body: JSON.stringify({ nome, email, senha, tipo: 'comum' })
             });
 
             const dados = await response.json();
 
-            if (response.ok) { 
+            if (response.ok) {
                 alert("Usuário criado com sucesso! Faça login agora.");
                 setCriandoConta(false);
             } else {
@@ -41,9 +41,10 @@ function Cadastro({ setCriandoConta }) {
     }
 
     return (
-        <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-            <div className="p-4 border rounded shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
+        <div className="login-container">
+            <div className="login-card">
                 <h2 className="text-center mb-4">Nova Conta</h2>
+                
                 {alerta.message && <Alert variant="danger">{alerta.message}</Alert>}
                 
                 <Carregando carregando={carregando}>
@@ -70,7 +71,7 @@ function Cadastro({ setCriandoConta }) {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="senha">
+                        <Form.Group className="mb-4" controlId="senha">
                             <Form.Label>Senha</Form.Label>
                             <Form.Control 
                                 type="password" 
@@ -82,7 +83,7 @@ function Cadastro({ setCriandoConta }) {
                         </Form.Group>
 
                         <div className="d-grid gap-2">
-                            <Button variant="success" type="submit">
+                            <Button variant="success" type="submit" size="lg">
                                 Criar Conta
                             </Button>
                             <Button variant="link" onClick={() => setCriandoConta(false)}>
@@ -92,7 +93,7 @@ function Cadastro({ setCriandoConta }) {
                     </Form>
                 </Carregando>
             </div>
-        </Container>
+        </div>
     );
 }
 

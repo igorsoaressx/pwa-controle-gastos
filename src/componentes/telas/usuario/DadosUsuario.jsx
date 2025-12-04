@@ -1,4 +1,3 @@
-// src/componentes/telas/usuario/DadosUsuario.jsx
 import React, { useState, useContext, useEffect } from 'react';
 import AutenticacaoContext from '../login/AutenticacaoContext';
 import Button from 'react-bootstrap/Button';
@@ -6,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Carregando from '../../comuns/Carregando';
+import { atualizarUsuarioAPI } from '../../../servicos/UsuarioServico';
 
 function DadosUsuario() {
     const { usuario } = useContext(AutenticacaoContext);
@@ -27,7 +27,20 @@ function DadosUsuario() {
     const acaoSalvar = async (e) => {
         e.preventDefault();
         setCarregando(true);
-        setAlerta({ status: "error", message: "A funcionalidade de salvar será implementada na API em breve!" });
+        setAlerta({ status: "", message: "" });
+
+        try {
+            const retorno = await atualizarUsuarioAPI({ nome, senha });
+
+            if (retorno.message && retorno.message.includes("sucesso")) {
+                setAlerta({ status: "success", message: "Dados atualizados! Saia e entre novamente para ver as mudanças." });
+                setSenha(""); 
+            } else {
+                setAlerta({ status: "error", message: retorno.message || "Erro ao atualizar." });
+            }
+        } catch (err) {
+            setAlerta({ status: "error", message: "Erro de conexão: " + err.message });
+        }
         
         setCarregando(false);
     }

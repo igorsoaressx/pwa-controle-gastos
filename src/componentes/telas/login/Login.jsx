@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import AutenticacaoContext from './AutenticacaoContext';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Carregando from '../../comuns/Carregando';
-import Cadastro from './Cadastro'; 
+import Cadastro from './Cadastro';
+import './Login.css'; 
 
 function Login({ children }) {
 
@@ -13,7 +13,6 @@ function Login({ children }) {
     const [alerta, setAlerta] = useState({ status: "", message: "" });
     const [carregando, setCarregando] = useState(false);
     const [criandoConta, setCriandoConta] = useState(false);
-
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -58,7 +57,7 @@ function Login({ children }) {
         localStorage.removeItem('usuario');
     }
 
-    //Se estiver logado mostra o site
+ 
     if (usuario) {
         return (
             <AutenticacaoContext.Provider value={{ usuario, logout }}>
@@ -67,15 +66,16 @@ function Login({ children }) {
         );
     }
 
-    
     if (criandoConta) {
         return <Cadastro setCriandoConta={setCriandoConta} />;
     }
 
+
     return (
-        <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-            <div className="p-4 border rounded shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
-                <h2 className="text-center mb-4">Controle de Gastos</h2>
+        <div className="login-container">
+            <div className="login-card">
+                <h2 className="text-center mb-4">Login</h2>
+                
                 {alerta.message && <Alert variant="danger">{alerta.message}</Alert>}
                 
                 <Carregando carregando={carregando}>
@@ -84,18 +84,18 @@ function Login({ children }) {
                             <Form.Label>Email</Form.Label>
                             <Form.Control 
                                 type="email" 
-                                placeholder="Seu email" 
+                                placeholder="exemplo@teste.com" 
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required 
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="senha">
+                        <Form.Group className="mb-4" controlId="senha">
                             <Form.Label>Senha</Form.Label>
                             <Form.Control 
                                 type="password" 
-                                placeholder="Sua senha" 
+                                placeholder="******" 
                                 value={senha}
                                 onChange={(e) => setSenha(e.target.value)}
                                 required 
@@ -103,18 +103,23 @@ function Login({ children }) {
                         </Form.Group>
 
                         <div className="d-grid gap-2">
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" type="submit" size="lg">
                                 Entrar
                             </Button>
-                            {}
-                            <Button variant="link" onClick={() => setCriandoConta(true)}>
-                                Não tem conta? Cadastre-se
+                            
+                            <hr />
+                            
+                            <Button 
+                                variant="outline-primary" 
+                                onClick={() => setCriandoConta(true)}
+                            >
+                                Criar nova conta
                             </Button>
                         </div>
                     </Form>
                 </Carregando>
             </div>
-        </Container>
+        </div>
     );
 }
 
