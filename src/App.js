@@ -1,11 +1,11 @@
-// src/App.js (ATUALIZADO E COMPLETO)
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Menu from "./componentes/Menu";
 import Home from "./componentes/telas/Home";
 import Categoria from "./componentes/telas/categoria/Categoria";
 import Transacao from "./componentes/telas/transacao/Transacao"; 
-import Meta from "./componentes/telas/meta/Meta"; // 1. IMPORTA A TELA DE METAS
+import Meta from "./componentes/telas/meta/Meta";
+import Login from "./componentes/telas/login/Login";
+import DadosUsuario from "./componentes/telas/usuario/DadosUsuario"; 
 
 const router = createBrowserRouter([
     {
@@ -24,19 +24,24 @@ const router = createBrowserRouter([
                 path: "transacoes",
                 element: <Transacao />,
             },
-            { // 2. ATIVA A ROTA DE METAS
+            {
                 path: "metas",
                 element: <Meta />,
+            },
+            {
+                path: "meus-dados", 
+                element: <DadosUsuario />,
             }
         ]
     }
 ]);
 
 function App() {
-    return (
+  return (
+    <Login>
         <RouterProvider router={router} />
-    );
+    </Login>
+  );
 }
 
 export default App;
-

@@ -1,11 +1,13 @@
 import { useContext } from 'react';
 import CategoriaContext from './CategoriaContext';
+import AutenticacaoContext from '../login/AutenticacaoContext';
 import Alerta from '../../comuns/Alerta';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
 function Tabela() {
     const { alerta, listaObjetos, remover, novoObjeto, editarObjeto } = useContext(CategoriaContext);
+    const { usuario } = useContext(AutenticacaoContext);
 
     return (
         <div style={{ padding: '20px' }}>
@@ -29,14 +31,17 @@ function Tabela() {
                         {listaObjetos.map((objeto) => (
                             <tr key={objeto.id}>
                                 <td align="center">
-                                    <Button variant="info" onClick={() => editarObjeto(objeto.id)}
-                                     title="Editar">
+                                    <Button variant="info" onClick={() => editarObjeto(objeto.id)} title="Editar">
                                         <i className="bi bi-pencil-square"></i>
                                     </Button>
-                                    <Button variant="danger" className="ms-2" onClick={() => { remover(objeto.id); }}
-                                     title="Remover">
-                                        <i className="bi bi-trash"></i>
-                                    </Button>
+                                    
+                                    {}
+                                    {usuario && usuario.tipo === 'admin' && (
+                                        <Button variant="danger" className="ms-2" onClick={() => { remover(objeto.id); }} title="Remover">
+                                            <i className="bi bi-trash"></i>
+                                        </Button>
+                                    )}
+
                                 </td>
                                 <td>{objeto.id}</td>
                                 <td>{objeto.nome}</td>
